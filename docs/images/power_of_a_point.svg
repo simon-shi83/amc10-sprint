@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <rect width="100%" height="100%" fill="#0b1120" rx="8"/>
+  <circle cx="245" cy="100" r="70" fill="none" stroke="#64748b" stroke-width="2"/>
+  <circle cx="35" cy="100" r="4.5" fill="#f43f5e"/>
+  <text x="20" y="105" fill="#f43f5e" font-family="sans-serif" font-weight="bold" font-size="14">P</text>
+  <line x1="35" y1="100" x2="310" y2="150" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="35" y1="100" x2="225" y2="32" stroke="#fbbf24" stroke-width="2"/>
+  <circle cx="178" cy="125" r="4" fill="#4ade80"/><text x="175" y="145" fill="#4ade80" font-family="sans-serif" font-weight="bold" font-size="13">A</text>
+  <circle cx="308" cy="148" r="4" fill="#4ade80"/><text x="315" y="165" fill="#4ade80" font-family="sans-serif" font-weight="bold" font-size="13">B</text>
+  <circle cx="221" cy="33" r="4" fill="#fbbf24"/><text x="220" y="24" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="13">T (切点)</text>
+</svg>
