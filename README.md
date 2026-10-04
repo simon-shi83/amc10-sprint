@@ -35,10 +35,9 @@
 
 ## 📚 知识速查武器包（非奥数背景必看）
 
-* 🌟 **【强烈推荐】[交互式高颜值公式与几何图解手册 (HTML 版)](docs/math_cheat_sheet.html)** —— 双击在浏览器打开！内置 KaTeX 完美排版数学公式、矢量 SVG 几何示意图及实时算分器！
-1. 📖 [50 个核心高频英文数学词汇速查表 (Markdown 版)](docs/vocab_50.md) —— 扫清读题所有生僻专业词汇
-2. 📐 [平面几何 5 大必考定理与公式速查 (Markdown 版)](docs/geometry_theorems.md) —— 角平分线、圆幂、射影、鞋带公式、托勒密
-3. 🔢 [数论与代数提速核心秘籍 (Markdown 版)](docs/algebra_and_number_theory.md) —— 因数和公式、高次韦达、同余模运算、隔板法与容斥
+1. 📖 [50 个核心高频英文数学词汇速查表](docs/vocab_50.md) —— 扫清读题所有生僻专业词汇
+2. 📐 [平面几何 5 大必考定理与公式速查](docs/geometry_theorems.md) —— 内嵌高清矢量几何图 + 标准公式块
+3. 🔢 [数论与代数提速核心秘籍](docs/algebra_and_number_theory.md) —— 因数和公式、高次韦达、同余模运算、隔板法与容斥
 4. 💻 [Python 暴力验证示例脚本](verify_scripts/verify_example.py) —— OI 选手用代码验证数学的“专属特权”
 
 ---

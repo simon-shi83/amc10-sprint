@@ -1,7 +1,5 @@
 # 📐 平面几何 5 大必考公式与定理速查
 
-> 💡 **提示**：GitHub 原生支持 LaTeX 数学渲染！如需交互体验，可在本地双击 [math_cheat_sheet.html](math_cheat_sheet.html)。
-
 ---
 
 ### 1. 角平分线定理（Angle Bisector Theorem）
