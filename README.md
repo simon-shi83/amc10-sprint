@@ -8,7 +8,11 @@
 
 ## 🏆 闯关积分目标
 
-111533\text{总分} = (\text{答对题数} \times 6) + (\text{未答题数} \times 1.5)111533
+* 🌟 **【网页端直达】[AMC 10B 互动大师工坊 (GitHub Pages 在线访问)](https://simon-shi83.github.io/amc10-sprint/)** —— 手机/iPad/电脑免配置打开！内置完整几何母定理变式图解、全套真题看板与智能算分器！
+
+$$
+\text{总分} = (\text{答对题数} \times 6) + (\text{未答题数} \times 1.5)
+$$
 
 * 🥉 **关卡 1（全球成就奖）**：**$\ge 90$ 分**（初二及以下专属 Certificate of Achievement）
 * 🥈 **关卡 2（AIME 邀请赛）**：**$\ge 100$ 分**（跨级斩获全球前 2.5% AIME 门票）

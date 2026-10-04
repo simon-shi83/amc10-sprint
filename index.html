@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMC 10B 冲刺特训互动大师工坊 (AMC 10B Master Lab)</title>
+  <!-- KaTeX for math typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --card-border-hover: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 0;
+      margin: 0;
+    }
+    .header-hero {
+      background: radial-gradient(circle at top, #1e293b 0%, #070d19 100%);
+      padding: 50px 20px 30px;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .container { max-width: 1180px; margin: 0 auto; padding: 30px 20px; }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle { color: var(--text-muted); font-size: 1.15rem; max-width: 750px; margin: 0 auto 20px; }
+    .badge {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.4); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.4); }
+
+    /* Navigation Bar */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 20px;
+    }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+    }
+    .nav-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      color: #38bdf8;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    /* Calculator Card */
+    .calc-card {
+      background: linear-gradient(145deg, #0f172a, #0b1120);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 35px -10px var(--accent-glow);
+    }
+    .calc-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      align-items: center;
+    }
+    .calc-input label { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+    .calc-input input {
+      width: 100%;
+      background: #070d19;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      padding: 12px 18px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .calc-input input:focus { border-color: var(--accent); }
+    .calc-result {
+      background: rgba(7, 13, 25, 0.95);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      border: 1px dashed var(--accent);
+    }
+    .calc-score { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+    .calc-status { font-size: 0.98rem; font-weight: 600; margin-top: 4px; }
+
+    /* Section Cards */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 45px 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      border-left: 5px solid var(--accent);
+      padding-left: 14px;
+    }
+    .theorem-block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .theorem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+    .theorem-title { font-size: 1.35rem; font-weight: 800; color: #fff; }
+    .theorem-tag { font-size: 0.82rem; color: var(--amber); font-weight: 700; }
+
+    /* Formula Banner */
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.25rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* SVG Illustrations */
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 18px 0;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+
+    /* Expand / Proof Box */
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+    .proof-title { font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+    .expand-title { font-weight: 700; color: var(--purple); margin-bottom: 8px; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+    .example-title { font-weight: 700; color: var(--amber); margin-bottom: 8px; }
+
+    /* Tables */
+    .master-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+    .master-table th, .master-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .master-table th { background: #070d19; color: var(--accent); font-weight: 700; font-size: 0.95rem; }
+    .master-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+    .master-table a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .master-table a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO HEADER -->
+<div class="header-hero">
+  <h1>AMC 10B 冲刺特训互动大师工坊</h1>
+  <p class="subtitle">专为初二（8年级）信息学算法特长生定制 · 告别生硬死背 · 深度打通五大几何母定理、全域变式与实战秒杀</p>
+  <div>
+    <span class="badge badge-blue">8年级专属备战</span>
+    <span class="badge badge-purple">CSP-S 算法选手降维赋能</span>
+    <span class="badge badge-amber">AIME 邀请赛冲刺</span>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#tracker" class="nav-btn active">📊 8套真题看板</a>
+    <a href="#calculator" class="nav-btn">🧮 模考算分器</a>
+    <a href="#geom-1" class="nav-btn">1. 角平分线双星</a>
+    <a href="#geom-2" class="nav-btn">2. 斯特定理与中线</a>
+    <a href="#geom-3" class="nav-btn">3. 圆幂定理家族</a>
+    <a href="#geom-4" class="nav-btn">4. 托勒密与正多边形</a>
+    <a href="#geom-5" class="nav-btn">5. 射影与高线面积群</a>
+    <a href="#geom-6" class="nav-btn">6. 塞瓦与梅氏顶峰</a>
+    <a href="#reflex" class="nav-btn">⚡ 考场条件反射字典</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- EXAM TRACKER -->
+  <section id="tracker">
+    <div class="section-title">📊 8 套官方真题实战看板 (2022 ～ 2025 A/B 全景)</div>
+    <div style="overflow-x: auto;">
+      <table class="master-table">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>试卷名称</th>
+            <th>进度安排</th>
+            <th>在线交互做题 (罗博深题库)</th>
+            <th>全球高手逐题秒杀 (AoPS Wiki)</th>
+            <th>当年 AIME 晋级线</th>
+            <th>目标</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td><strong>2022 AMC 10A</strong></td>
+            <td>第 1 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10/2022A" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2022_AMC_10A_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>93.0 分</td>
+            <td><span class="badge badge-blue">摸底脱敏</span></td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td><strong>2022 AMC 10B</strong></td>
+            <td>第 1 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10/2022B" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2022_AMC_10B_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>94.5 分</td>
+            <td><span class="badge badge-blue">稳住前15题</span></td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td><strong>2023 AMC 10A</strong></td>
+            <td>第 2 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10/2023A" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2023_AMC_10A_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>103.5 分</td>
+            <td><span class="badge badge-purple">攻克数论组合</span></td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td><strong>2023 AMC 10B</strong></td>
+            <td>第 2 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10/2023B" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2023_AMC_10B_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>105.0 分</td>
+            <td><span class="badge badge-purple">冲进 AIME</span></td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td><strong>2024 AMC 10A</strong></td>
+            <td>第 3 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2024_AMC_10A_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>~102 分</td>
+            <td><span class="badge badge-amber">几何扫盲</span></td>
+          </tr>
+          <tr>
+            <td>06</td>
+            <td><strong>2024 AMC 10B</strong></td>
+            <td>第 3 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2024_AMC_10B_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>~100 分</td>
+            <td><span class="badge badge-amber">考场压迫感模拟</span></td>
+          </tr>
+          <tr>
+            <td>07</td>
+            <td><strong>2025 AMC 10A</strong></td>
+            <td>第 4 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2025_AMC_10A_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>官方线</td>
+            <td><span class="badge badge-blue">终极实战演练</span></td>
+          </tr>
+          <tr>
+            <td>08</td>
+            <td><strong>2025 AMC 10B</strong></td>
+            <td>第 4 周</td>
+            <td><a href="https://live.poshenloh.com/past-contests/amc10" target="_blank">🚀 在线计时全真模考</a></td>
+            <td><a href="https://artofproblemsolving.com/wiki/index.php/2025_AMC_10B_Problems" target="_blank">📖 查看 AoPS 题解</a></td>
+            <td>官方线</td>
+            <td><span class="badge badge-amber">巅峰状态上考场</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section id="calculator">
+    <div class="calc-card">
+      <div class="calc-title">
+        <span>🧮 全真模考智能算分器（输入答对与留空，即时测算晋级概率）</span>
+      </div>
+      <div class="calc-grid">
+        <div class="calc-input">
+          <label>答对题数 (Correct, 每题 +6 分):</label>
+          <input type="number" id="correct" min="0" max="25" value="14" oninput="updateScore()">
+        </div>
+        <div class="calc-input">
+          <label>未答留空题数 (Blank, 每题 +1.5 分):</label>
+          <input type="number" id="blank" min="0" max="25" value="11" oninput="updateScore()">
+        </div>
+        <div class="calc-result">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">实时预估得分</div>
+          <div class="calc-score" id="score-display">100.5</div>
+          <div class="calc-status" id="status-display" style="color: #34d399;">🥈 达成【AIME 全美数学邀请赛晋级资格 (前 2.5%)】！</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 1: ANGLE BISECTOR -->
+  <section id="geom-1">
+    <div class="section-title">1. 角平分线双星体系（从比值到长度，再到阿波罗尼斯圆）</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母定理】内角平分线定理 (Internal Angle Bisector)</span>
+        <span class="theorem-tag">高频核心 ★★★★★</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/angle_bisector_internal.svg" alt="内角平分线定理图解">
+      </div>
+      <p>在 $\triangle ABC$ 中，$AD$ 为 $\angle A$ 的内角平分线，交对边 $BC$ 于点 $D$。记 $AB=c, AC=b, BD=m, DC=n$。则：</p>
+      <div class="formula-banner">
+        $$\frac{BD}{DC} = \frac{AB}{AC} \iff \frac{m}{n} = \frac{c}{b}$$
+      </div>
+
+      <div class="proof-box">
+        <div class="proof-title">🔍 面积法证明（最快、最透彻的竞赛推导）</div>
+        点 $D$ 在 $\angle A$ 的角平分线上，由角平分线性质，点 $D$ 到两边 $AB, AC$ 的距离相等，设为 $h_0$。同时 $\triangle ABD$ 与 $\triangle ACD$ 共顶点 $A$，在底边 $BC$ 上的高相同，设为 $H$。<br>
+        列出面积比的两种表达：
+        $$\frac{\text{Area}(\triangle ABD)}{\text{Area}(\triangle ACD)} = \frac{\frac{1}{2} \cdot c \cdot h_0}{\frac{1}{2} \cdot b \cdot h_0} = \frac{c}{b}$$
+        $$\frac{\text{Area}(\triangle ABD)}{\text{Area}(\triangle ACD)} = \frac{\frac{1}{2} \cdot BD \cdot H}{\frac{1}{2} \cdot DC \cdot H} = \frac{BD}{DC}$$
+        两式联立，瞬间得证 $\frac{BD}{DC} = \frac{c}{b}$！
+      </div>
+
+      <div class="expand-box">
+        <div class="expand-title">🚀 举一反三（推广一）：外角平分线推广 (External Angle Bisector)</div>
+        <div class="img-box" style="margin: 10px 0;">
+          <img src="docs/images/angle_bisector_external.svg" alt="外角平分线推广图解">
+        </div>
+        作外角 $\angle A'AC$ 的平分线交 $BC$ 的延长线于点 $E$。外分点 $E$ 严格满足完全相同的比例：
+        <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+          $$\frac{EB}{EC} = \frac{AB}{AC} = \frac{c}{b}$$
+        </div>
+        <strong>极客记忆</strong>：分子是交点到远端点 $B$ 的全长 $EB$，分母是交点到近端点 $C$ 的外段 $EC$！
+      </div>
+
+      <div class="expand-box" style="border-left-color: var(--amber);">
+        <div class="expand-title" style="color: var(--amber);">🚀 举一反三（推广二）：调和点列与阿波罗尼斯圆 (Apollonius Circle)</div>
+        内分点 $D$ 与外分点 $E$ 共同满足：
+        $$\frac{BD}{DC} = \frac{EB}{EC} = \frac{c}{b} = k \quad (k \ne 1)$$
+        <strong>阿波罗尼斯轨迹定理</strong>：平面上所有到两定点 $B, C$ 距离之比为常数 $k$ 的动点 $P$，其轨迹<strong>必是一个圆</strong>！且线段 $DE$ 恰恰就是这个圆的<strong>直径</strong>！
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">⚡ 角平分线自身长度公式（免做垂线，10 秒秒杀）</div>
+        * 内角平分线长：$$AD^2 = AB \cdot AC - BD \cdot DC = bc - mn$$
+        * 外角平分线长：$$AE^2 = EB \cdot EC - AB \cdot AC$$
+        <strong>实战示范</strong>：$c=6, b=4$，$BC$ 被内角平分线分为 $m=3, n=2$：<br>
+        $AD^2 = (6 \times 4) - (3 \times 2) = 24 - 6 = 18 \implies AD = \sqrt{18} = 3\sqrt{2}$！
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 2: STEWART & MEDIAN -->
+  <section id="geom-2">
+    <div class="section-title">2. 斯特瓦尔特定理家族（线段长计算的终极核武器）</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母定理】斯特瓦尔特定理 (Stewart's Theorem)</span>
+        <span class="theorem-tag">万能线段公式 ★★★★★</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/stewart_and_median.svg" alt="斯特瓦尔特定理与中线图解">
+      </div>
+      <p>在 $\triangle ABC$ 中，$D$ 为底边 $BC$ 上<strong>任意一点</strong>。记 $BC=a, AC=b, AB=c, AD=d, BD=m, CD=n$（满足 $a = m + n$）。则恒有：</p>
+      <div class="formula-banner">
+        $$b^2 m + c^2 n = a(d^2 + mn)$$
+      </div>
+      <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem;">
+        口诀：<em>"A man and his dad put a bomb in the sink."</em> ($man + dad = bmb + cnc$)
+      </p>
+
+      <div class="expand-box">
+        <div class="expand-title">🚀 举一反三（特例）：阿波罗尼奥斯中线定理 (Apollonius's Theorem)</div>
+        当点 $D$ 恰好为 $BC$ 的<strong>中点</strong>时（即 $m = n = a/2$），斯特定理化简为：
+        <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+          $$b^2 + c^2 = 2 \left(m_a^2 + \frac{a^2}{4}\right) \implies m_a = \frac{1}{2} \sqrt{2b^2 + 2c^2 - a^2}$$
+        </div>
+        <strong>平行四边形恒等式</strong>：两条对角线的平方和，严格等于四边平方和！$AC^2 + BD^2 = 2(AB^2 + BC^2)$。
+      </div>
+
+      <div class="expand-box" style="border-left-color: var(--green);">
+        <div class="expand-title" style="color: var(--green);">🚀 举一反三：三中线平方和黄金比例</div>
+        三条中线平方和与三边平方和永远满足 $\frac{3}{4}$ 比例：
+        $$\sum m_a^2 = m_a^2 + m_b^2 + m_c^2 = \frac{3}{4} (a^2 + b^2 + c^2)$$
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 3: POWER OF A POINT -->
+  <section id="geom-3">
+    <div class="section-title">3. 圆幂定理不变量族（点对圆的几何代数守恒）</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母概念】点对圆的幂（Power of a Point）</span>
+        <span class="theorem-tag">圆几何守恒量 ★★★★★</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/power_of_a_point_family.svg" alt="圆幂定理家族全景图">
+      </div>
+      <p>点 $P$ 到圆心 $O$ 距离为 $d$，圆半径为 $R$。圆幂定义为 $\text{Pow}(P) = d^2 - R^2$。过点 $P$ 引任意交圆于 $A, B$ 的直线，其距离积恒守恒：</p>
+      
+      <div class="formula-banner">
+        ① 圆内相交弦：$PA \cdot PB = PC \cdot PD$<br>
+        ② 圆外双割线：$PA \cdot PB = PC \cdot PD$<br>
+        ③ 切割线定理：$PT^2 = PA \cdot PB$
+      </div>
+
+      <div class="expand-box">
+        <div class="expand-title">🚀 举一反三：根轴定理 (Radical Axis) 与三圆根心 (Radical Center)</div>
+        * <strong>根轴</strong>：到两圆圆幂相等的动点轨迹，必是一条<strong>垂直于两圆连心线的直线</strong>！<br>
+        * <strong>公共弦即根轴</strong>：若两圆相交，两圆的公共弦所在直线就是根轴！从根轴上任意一点向两圆引切线，切线长相等！<br>
+        * <strong>三圆根心</strong>：三圆两两相交，其<strong>三条公共弦必交于同一点</strong>（根心）！
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 4: PTOLEMY -->
+  <section id="geom-4">
+    <div class="section-title">4. 托勒密定理与正多边形拓展（四边形的最高乘积法则）</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母定理】托勒密定理 (Ptolemy's Theorem)</span>
+        <span class="theorem-tag">圆内接四边形核心 ★★★★★</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/ptolemy_and_pentagon.svg" alt="托勒密定理与正五边形图解">
+      </div>
+      <p>在任意圆内接四边形 $ABCD$ 中：<strong>两条对角线的乘积 = 两组对边乘积之和</strong>：</p>
+      <div class="formula-banner">
+        $$AC \cdot BD = AB \cdot CD + BC \cdot AD$$
+      </div>
+
+      <div class="expand-box">
+        <div class="expand-title">🚀 举一反三（推广一）：广义托勒密不等式</div>
+        对平面上<strong>任意</strong>四边形（不要求共圆）：$AC \cdot BD \le AB \cdot CD + BC \cdot AD$。等号成立当且仅当四点共圆且按顺序排列！
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">⚡ 正五边形黄金分割秒杀 (AMC 10 经典考法)</div>
+        边长为 1 的正五边形 $ABCDE$，设对角线长为 $d$。选定圆内接四边形 $ABCD$：<br>
+        边长为 $1, 1, 1$，对角线为 $d, d, d$。代入托勒密定理：
+        $$d \cdot d = 1 \cdot 1 + 1 \cdot d \implies d^2 - d - 1 = 0 \implies d = \frac{1+\sqrt{5}}{2} \approx 1.618 \quad \text{(黄金分割比！)}$$
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 5: RIGHT TRIANGLE -->
+  <section id="geom-5">
+    <div class="section-title">5. 直角三角形射影定理与高线面积群</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母定理】射影定理 (Geometric Mean Theorem)</span>
+        <span class="theorem-tag">全相似模型 ★★★★☆</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/right_triangle_project.svg" alt="直角三角形射影定理图解">
+      </div>
+      <p>在 Rt$\triangle ABC$ 中，$\angle C = 90^\circ$，$CD \perp AB$ 于 $D$（$CD=h, AD=p, BD=q, AB=c$）：</p>
+      <div class="formula-banner">
+        $$h^2 = p \cdot q \quad \text{且} \quad b^2 = p \cdot c, \quad a^2 = q \cdot c$$
+      </div>
+
+      <div class="expand-box">
+        <div class="expand-title">🚀 举一反三：斜边高的倒数平方和定理（AMC 10 超高频）</div>
+        由面积 $ab = ch$ 与勾股定理 $c^2 = a^2 + b^2$ 直接推导：
+        <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+          $$\frac{1}{h^2} = \frac{1}{a^2} + \frac{1}{b^2}$$
+        </div>
+        <strong>三维三直角四面体推广</strong>：$O-ABC$ 三直角棱高 $h$ 同样满足：$\frac{1}{h^2} = \frac{1}{a^2} + \frac{1}{b^2} + \frac{1}{c^2}$！
+      </div>
+
+      <div class="expand-box" style="border-left-color: var(--amber);">
+        <div class="expand-title" style="color: var(--amber);">🚀 纯几何直观证明：算几不等式 (AM-GM)</div>
+        在直径为 $c = p + q$ 的半圆中，半径长为 $\frac{p+q}{2}$，半弦长为 $\sqrt{pq}$。因为半弦永远不可能超过半径：
+        $$\frac{p + q}{2} \ge \sqrt{pq} \quad \text{(当且仅当 } p=q \text{ 时取等号)}$$
+      </div>
+    </div>
+  </section>
+
+  <!-- THEOREM 6: CEVA & MENELAUS -->
+  <section id="geom-6">
+    <div class="section-title">6. 塞瓦定理与梅涅劳斯定理（共点共线的最高法则）</div>
+    <div class="theorem-block">
+      <div class="theorem-header">
+        <span class="theorem-title">【母定理】塞瓦定理与梅氏定理</span>
+        <span class="theorem-tag">共点共线顶峰 ★★★★★</span>
+      </div>
+      <div class="img-box">
+        <img src="docs/images/ceva_and_menelaus.svg" alt="塞瓦与梅涅劳斯定理图解">
+      </div>
+      <p>三条塞瓦线 $AD, BE, CF$ <strong>交于同一点 $P$ 的充要条件是</strong>：</p>
+      <div class="formula-banner">
+        $$\frac{AF}{FB} \cdot \frac{BD}{DC} \cdot \frac{CE}{EA} = 1$$
+      </div>
+      <p style="text-align: center; color: var(--text-muted);">
+        口诀：<em>“顶到分，分到顶；绕着三边转一圈，顺次乘积等于 1！”</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- CONDITION REFLEX -->
+  <section id="reflex">
+    <div class="section-title">⚡ 考场“见条件反射字典”（3 秒锁定工具）</div>
+    <div style="overflow-x: auto;">
+      <table class="master-table">
+        <thead>
+          <tr>
+            <th>题目给出的特征几何信息</th>
+            <th>脑海中第一反应调用的工具</th>
+            <th>关键公式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>看到 <strong>内角 / 外角平分线 + 线段长</strong></td>
+            <td>角平分线定理及长度公式</td>
+            <td>$\frac{m}{n} = \frac{c}{b}, \quad AD^2 = bc - mn$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>底边上线段分点，求线段长</strong></td>
+            <td>斯特瓦尔特定理 (Stewart)</td>
+            <td>$b^2 m + c^2 n = a(d^2 + mn)$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>三角形中线，求边长或中线</strong></td>
+            <td>阿波罗尼奥斯中线定理</td>
+            <td>$b^2 + c^2 = 2(m_a^2 + a^2/4)$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>圆 + 两相交直线 / 切线</strong></td>
+            <td>圆幂定理 (Power of a Point)</td>
+            <td>$PA \cdot PB = PC \cdot PD = PT^2$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>圆内接四边形对角线 / 边长</strong></td>
+            <td>托勒密定理 (Ptolemy)</td>
+            <td>$AC \cdot BD = AB \cdot CD + BC \cdot AD$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>正五边形求对角线 / 黄金分割</strong></td>
+            <td>托勒密构造二次方程</td>
+            <td>$d^2 - d - 1 = 0 \implies d = \frac{\sqrt{5}+1}{2}$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>直角三角形斜边高</strong></td>
+            <td>射影定理与高线倒数平方和</td>
+            <td>$h^2 = pq, \quad \frac{1}{h^2} = \frac{1}{a^2} + \frac{1}{b^2}$</td>
+          </tr>
+          <tr>
+            <td>看到 <strong>三线共点 / 三点共线</strong></td>
+            <td>塞瓦定理 / 梅涅劳斯定理</td>
+            <td>绕行三边比值之积等于 1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+
+<script>
+function updateScore() {
+  const c = parseInt(document.getElementById('correct').value) || 0;
+  const b = parseInt(document.getElementById('blank').value) || 0;
+  const total = Math.min(25, c + b);
+  const score = (c * 6) + (b * 1.5);
+  
+  const scoreEl = document.getElementById('score-display');
+  const statusEl = document.getElementById('status-display');
+  scoreEl.textContent = score.toFixed(1);
+
+  if (score >= 115) {
+    statusEl.innerHTML = '🥇 达成【全球前 1% 卓越奖 (DHR)】！绝对顶尖！';
+    statusEl.style.color = '#fbbf24';
+  } else if (score >= 100) {
+    statusEl.innerHTML = '🥈 达成【AIME 全美数学邀请赛晋级资格 (前 2.5%)】！';
+    statusEl.style.color = '#34d399';
+  } else if (score >= 90) {
+    statusEl.innerHTML = '🥉 达成【AMC 10 低年级全球成就奖 (Certificate of Achievement)】！';
+    statusEl.style.color = '#38bdf8';
+  } else {
+    statusEl.innerHTML = '🎯 保持稳扎稳打！把做对题数提升到 14 题即可冲入 AIME！';
+    statusEl.style.color = '#94a3b8';
+  }
+}
+</script>
+</body>
+</html>
