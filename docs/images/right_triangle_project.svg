@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="260" viewBox="0 0 560 260">
+  <rect width="100%" height="100%" fill="#0b1120" rx="10"/>
+  <!-- Right Triangle ABC -->
+  <polygon points="60,185 460,185 200,45" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Altitude CD -->
+  <line x1="200" y1="45" x2="200" y2="185" stroke="#38bdf8" stroke-width="2.5"/>
+  <!-- Right angle symbols -->
+  <rect x="200" y="169" width="16" height="16" fill="none" stroke="#f43f5e" stroke-width="1.5"/>
+  <!-- Points -->
+  <circle cx="60" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="460" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="200" cy="45" r="4.5" fill="#f8fafc"/>
+  <circle cx="200" cy="185" r="4.5" fill="#38bdf8"/>
+  <!-- Labels -->
+  <text x="40" y="195" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">A</text>
+  <text x="472" y="195" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">B</text>
+  <text x="195" y="32" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">C (90°)</text>
+  <text x="195" y="208" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="16">D</text>
+  <text x="210" y="115" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="15">h</text>
+  <text x="110" y="175" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">p (AD)</text>
+  <text x="320" y="175" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">q (BD)</text>
+  <text x="110" y="105" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="14">b (AC)</text>
+  <text x="345" y="105" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="14">a (BC)</text>
+  <!-- Banner -->
+  <rect x="25" y="218" width="510" height="34" fill="#1e293b" rx="6"/>
+  <text x="280" y="240" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="14" text-anchor="middle">
+    射影定理: h² = p·q  |  b² = p·c  |  倒数平方和: 1/h² = 1/a² + 1/b²
+  </text>
+</svg>

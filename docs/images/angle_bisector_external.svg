@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="260" viewBox="0 0 620 260">
+  <rect width="100%" height="100%" fill="#0b1120" rx="10"/>
+  <!-- Extended ray BA past A to A' -->
+  <line x1="60" y1="185" x2="310" y2="40" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Extended base BC past C to E -->
+  <line x1="60" y1="185" x2="570" y2="185" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Triangle ABC solid -->
+  <polygon points="210,98 60,185 300,185" fill="rgba(56,189,248,0.05)" stroke="#94a3b8" stroke-width="2"/>
+  <!-- External Bisector AE -->
+  <line x1="210" y1="98" x2="550" y2="185" stroke="#f43f5e" stroke-width="3" stroke-dasharray="6,4"/>
+  <!-- Points -->
+  <circle cx="210" cy="98" r="4.5" fill="#f8fafc"/>
+  <circle cx="60" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="300" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="550" cy="185" r="5" fill="#f43f5e"/>
+  <!-- Labels -->
+  <text x="200" y="85" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">A</text>
+  <text x="40" y="192" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">B</text>
+  <text x="295" y="208" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">C</text>
+  <text x="545" y="210" fill="#f43f5e" font-family="sans-serif" font-weight="bold" font-size="16">E (外角平分线交点)</text>
+  <text x="310" y="32" fill="#64748b" font-family="sans-serif" font-size="13">BA 延长线</text>
+  <!-- Side descriptions -->
+  <text x="110" y="130" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">AB (边 c)</text>
+  <text x="260" y="135" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">AC (边 b)</text>
+  <!-- Distance bracket indicators -->
+  <text x="300" y="175" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="13">←── 全长 EB ──→</text>
+  <text x="410" y="175" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="13">← EC →</text>
+  <!-- Formula Banner at bottom -->
+  <rect x="30" y="222" width="560" height="30" fill="#1e293b" rx="6"/>
+  <text x="310" y="242" fill="#f43f5e" font-family="sans-serif" font-weight="bold" font-size="14" text-anchor="middle">
+    外角平分线比例: EB / EC = AB / AC  |  线段长公式: AE² = EB·EC - AB·AC
+  </text>
+</svg>

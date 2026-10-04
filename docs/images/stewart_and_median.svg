@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="260" viewBox="0 0 560 260">
+  <rect width="100%" height="100%" fill="#0b1120" rx="10"/>
+  <!-- Triangle ABC -->
+  <polygon points="260,35 60,185 460,185" fill="none" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Arbitrary Cevian AD -->
+  <line x1="260" y1="35" x2="310" y2="185" stroke="#38bdf8" stroke-width="2.5"/>
+  <!-- Points -->
+  <circle cx="260" cy="35" r="4.5" fill="#f8fafc"/>
+  <circle cx="60" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="460" cy="185" r="4.5" fill="#f8fafc"/>
+  <circle cx="310" cy="185" r="4.5" fill="#38bdf8"/>
+  <!-- Labels -->
+  <text x="255" y="22" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">A</text>
+  <text x="38" y="192" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">B</text>
+  <text x="472" y="192" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="16">C</text>
+  <text x="305" y="210" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="16">D</text>
+  <!-- Sides -->
+  <text x="135" y="105" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">c</text>
+  <text x="375" y="105" fill="#fbbf24" font-family="sans-serif" font-weight="bold" font-size="14">b</text>
+  <text x="290" y="110" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="14">d</text>
+  <text x="175" y="175" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="14">m (BD)</text>
+  <text x="375" y="175" fill="#34d399" font-family="sans-serif" font-weight="bold" font-size="14">n (DC)</text>
+  <text x="250" y="200" fill="#94a3b8" font-family="sans-serif" font-size="13">全底 a = m + n</text>
+  <!-- Banner -->
+  <rect x="25" y="218" width="510" height="34" fill="#1e293b" rx="6"/>
+  <text x="280" y="240" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="14" text-anchor="middle">
+    斯特定理: b²m + c²n = a(d² + mn)  |  中线定理(m=n): b² + c² = 2(d² + m²)
+  </text>
+</svg>
