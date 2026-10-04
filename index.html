@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMC 10 核心公式与几何图解速查手册 (Visual Math Lab)</title>
+  <!-- KaTeX for pristine math typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .subtitle { color: var(--text-muted); font-size: 1.05rem; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 8px 4px 0;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+
+    /* Interactive Score Calculator */
+    .calc-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 35px;
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+    .calc-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      align-items: center;
+    }
+    .calc-input label { display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px; }
+    .calc-input input {
+      width: 100%;
+      background: #0b1120;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .calc-input input:focus { border-color: var(--accent); }
+    .calc-result {
+      background: rgba(11, 17, 32, 0.9);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      border: 1px dashed var(--card-border);
+    }
+    .calc-score { font-size: 2.4rem; font-weight: 900; color: var(--accent); }
+    .calc-status { font-size: 0.95rem; font-weight: 600; margin-top: 4px; }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      color: #38bdf8;
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin: 35px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 24px;
+    }
+    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .card-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .card-tag { font-size: 0.78rem; color: var(--amber); font-weight: 600; }
+    .formula-box {
+      background: #0b1120;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 14px;
+      margin: 14px 0;
+      text-align: center;
+      font-size: 1.15rem;
+      color: #38bdf8;
+      overflow-x: auto;
+    }
+    .desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .desc strong { color: var(--text-main); }
+    .tip-box {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #bae6fd;
+    }
+
+    /* Vector SVG Diagrams */
+    .svg-container {
+      background: #070d1a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      margin: 12px 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    svg text { font-family: -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #f8fafc; }
+
+    /* Vocabulary Table */
+    .vocab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.92rem;
+    }
+    .vocab-table th, .vocab-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .vocab-table th { background: #0f172a; color: var(--accent); font-weight: 700; }
+    .vocab-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+    .vocab-en { font-family: monospace; font-weight: 700; color: #fff; }
+    .vocab-zh { color: #cbd5e1; }
+    .vocab-ctx { color: var(--text-muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>AMC 10 核心公式与几何图解速查手册</h1>
+    <p class="subtitle">专为 2026 AMC 10B 冲刺定制 · 拒绝干瘪文本 · 图文并茂秒杀题干</p>
+    <div>
+      <span class="badge badge-blue">初二（8年级）专属备战</span>
+      <span class="badge badge-purple">信息学 CSP-S 选手加速器</span>
+      <span class="badge badge-amber">AIME 冲刺目标库</span>
+    </div>
+  </header>
+
+  <!-- Interactive Score Calculator -->
+  <div class="calc-card">
+    <div class="calc-title">
+      <span>🧮 全真模考算分器（输入做对与留空，即时测算晋级概率）</span>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-input">
+        <label>答对题数 (Correct, 每题 +6 分):</label>
+        <input type="number" id="correct" min="0" max="25" value="14" oninput="updateScore()">
+      </div>
+      <div class="calc-input">
+        <label>未答留空题数 (Blank, 每题 +1.5 分):</label>
+        <input type="number" id="blank" min="0" max="25" value="11" oninput="updateScore()">
+      </div>
+      <div class="calc-result">
+        <div style="font-size: 0.85rem; color: var(--text-muted);">实时预估总分</div>
+        <div class="calc-score" id="score-display">100.5</div>
+        <div class="calc-status" id="status-display" style="color: #4ade80;">🥈 压线晋级 AIME（全球前 2.5%）！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: GEOMETRY WITH HIGH-DEFINITION SVGS -->
+  <div class="section-title">📐 平面几何 5 大必考定理（图解版）</div>
+  <div class="grid-2">
+
+    <!-- 1. Angle Bisector -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">1. 角平分线定理 (Angle Bisector Theorem)</span>
+        <span class="card-tag">高频必考 ★★★★★</span>
+      </div>
+      <div class="svg-container">
+        <svg width="360" height="175" viewBox="0 0 360 175">
+          <!-- Triangle ABC -->
+          <polygon points="180,25 40,145 320,145" fill="none" stroke="#64748b" stroke-width="2"/>
+          <!-- Bisector AD -->
+          <line x1="180" y1="25" x2="148" y2="145" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="5,4"/>
+          <!-- Angle arc marks -->
+          <path d="M 172,43 A 22,22 0 0,0 180,47" fill="none" stroke="#f43f5e" stroke-width="2"/>
+          <path d="M 180,47 A 22,22 0 0,0 188,43" fill="none" stroke="#f43f5e" stroke-width="2"/>
+          <!-- Labels -->
+          <text x="175" y="16" fill="#f8fafc">A</text>
+          <text x="22" y="152" fill="#f8fafc">B</text>
+          <text x="328" y="152" fill="#f8fafc">C</text>
+          <text x="142" y="166" fill="#38bdf8">D</text>
+          <!-- Side ratios -->
+          <text x="95" y="80" fill="#fbbf24">边 c</text>
+          <text x="255" y="80" fill="#fbbf24">边 b</text>
+          <text x="85" y="140" fill="#4ade80">BD</text>
+          <text x="225" y="140" fill="#4ade80">DC</text>
+        </svg>
+      </div>
+      <div class="formula-box">
+        $$\frac{BD}{DC} = \frac{AB}{AC} = \frac{c}{b}$$
+      </div>
+      <p class="desc">
+        <strong>实战考点</strong>：内角平分线把对边分成的两条线段比，严格等于两邻边之比。若有外角平分线交 $BC$ 延长线于 $E$，亦有 $\frac{EB}{EC} = \frac{AB}{AC}$。
+      </p>
+      <div class="tip-box">💡 秒杀秘籍：遇到“角平分线 + 线段长”，第一反应列比例方程，绝不画辅助线！</div>
+    </div>
+
+    <!-- 2. Power of a Point -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">2. 圆幂定理 (Power of a Point Theorem)</span>
+        <span class="card-tag">圆几何神器 ★★★★★</span>
+      </div>
+      <div class="svg-container">
+        <svg width="360" height="175" viewBox="0 0 360 175">
+          <!-- Circle -->
+          <circle cx="225" cy="90" r="65" fill="none" stroke="#64748b" stroke-width="2"/>
+          <!-- Secants from P(30, 90) -->
+          <circle cx="30" cy="90" r="4" fill="#f43f5e"/>
+          <text x="15" y="93" fill="#f43f5e">P</text>
+          <!-- Secant 1 -->
+          <line x1="30" y1="90" x2="285" y2="135" stroke="#38bdf8" stroke-width="2"/>
+          <!-- Tangent PT -->
+          <line x1="30" y1="90" x2="208" y2="27" stroke="#fbbf24" stroke-width="2"/>
+          <!-- Points -->
+          <circle cx="163" cy="112" r="3.5" fill="#4ade80"/><text x="160" y="132" fill="#4ade80">A</text>
+          <circle cx="282" cy="133" r="3.5" fill="#4ade80"/><text x="288" y="150" fill="#4ade80">B</text>
+          <circle cx="203" cy="28" r="3.5" fill="#fbbf24"/><text x="203" y="20" fill="#fbbf24">T (切点)</text>
+        </svg>
+      </div>
+      <div class="formula-box">
+        $$PT^2 = PA \cdot PB = PC \cdot PD$$
+      </div>
+      <p class="desc">
+        <strong>实战考点</strong>：交点引出的两段乘积恒为定值！切线割线、两条割线、圆内相交两弦 $PA \cdot PB = PC \cdot PD$ 全通用。
+      </p>
+      <div class="tip-box">💡 秒杀秘籍：圆内求某段未知弦长，先找交点列相交弦乘积。</div>
+    </div>
+
+    <!-- 3. Geometric Mean / Altitude -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">3. 直角三角形射影定理 (Geometric Mean)</span>
+        <span class="card-tag">直角三角形 ★★★★☆</span>
+      </div>
+      <div class="svg-container">
+        <svg width="360" height="170" viewBox="0 0 360 170">
+          <!-- Right Triangle ABC, right angle at C -->
+          <polygon points="50,135 310,135 140,35" fill="none" stroke="#64748b" stroke-width="2"/>
+          <!-- Altitude CD -->
+          <line x1="140" y1="35" x2="140" y2="135" stroke="#38bdf8" stroke-width="2.5"/>
+          <!-- Right angle symbol at D -->
+          <rect x="140" y="121" width="14" height="14" fill="none" stroke="#f43f5e" stroke-width="1.5"/>
+          <!-- Labels -->
+          <text x="38" y="150" fill="#f8fafc">A</text>
+          <text x="315" y="150" fill="#f8fafc">B</text>
+          <text x="135" y="25" fill="#f8fafc">C (90°)</text>
+          <text x="145" y="150" fill="#38bdf8">D</text>
+          <text x="146" y="90" fill="#38bdf8">h</text>
+          <text x="90" y="127" fill="#fbbf24">p</text>
+          <text x="220" y="127" fill="#fbbf24">q</text>
+        </svg>
+      </div>
+      <div class="formula-box">
+        $$h^2 = p \cdot q \quad \text{且} \quad AC^2 = p \cdot c, \quad BC^2 = q \cdot c$$
+      </div>
+      <p class="desc">
+        <strong>实战考点</strong>：斜边上的高是两底边投影段的比例中项；每条直角边是它在斜边上的投影与整个斜边的比例中项。
+      </p>
+      <div class="tip-box">💡 秒杀秘籍：直角三角形分出两小直角三角形，三者全相似！</div>
+    </div>
+
+    <!-- 4. Shoelace Formula -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">4. 鞋带公式 (Shoelace Formula)</span>
+        <span class="card-tag">坐标几何大杀器 ★★★★★</span>
+      </div>
+      <div class="formula-box">
+        $$\text{Area} = \frac{1}{2} \left| \sum_{i=1}^n (x_i y_{i+1} - x_{i+1} y_i) \right|$$
+      </div>
+      <p class="desc">
+        <strong>实战考点</strong>：只要题目给出平面直角坐标系中的多边形顶点坐标，逆时针排列，交叉相乘相减除以 2，绝不用割补法！
+      </p>
+      <div class="tip-box">
+        <strong>示例速算</strong>：三点 $(0,0), (4,2), (1,5)$<br>
+        $\text{Area} = \frac{1}{2} |(0\times 2 + 4\times 5 + 1\times 0) - (0\times 4 + 2\times 1 + 5\times 0)| = \frac{1}{2}|20 - 2| = \mathbf{9}$
+      </div>
+    </div>
+
+    <!-- 5. Ptolemy Theorem -->
+    <div class="card" style="grid-column: 1 / -1;">
+      <div class="card-header">
+        <span class="card-title">5. 托勒密定理 (Ptolemy's Theorem)</span>
+        <span class="card-tag">圆内接四边形压轴 ★★★★☆</span>
+      </div>
+      <div class="formula-box">
+        $$AC \cdot BD = AB \cdot CD + BC \cdot AD \quad \text{(两对角线之积 = 两组对边乘积之和)}$$
+      </div>
+      <p class="desc">
+        <strong>实战考点</strong>：圆内接四边形专享！常用于等腰梯形、圆内接正五边形/正八边形中快速求特定对角线长度。
+      </p>
+    </div>
+
+  </div>
+
+  <!-- SECTION 2: ALGEBRA & NUMBER THEORY -->
+  <div class="section-title">🔢 数论与代数提速核心秘籍</div>
+  <div class="grid-2">
+
+    <!-- Factors Sum -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">因数个数与因数和公式</span>
+        <span class="card-tag">数论必考题</span>
+      </div>
+      <p class="desc">若正整数 $N = p_1^{a_1} p_2^{a_2} \dots p_k^{a_k}$ 为标准质因数分解：</p>
+      <div class="formula-box">
+        $$\text{因数总数 } d(N) = (a_1 + 1)(a_2 + 1)\dots(a_k + 1)$$
+        $$\text{因数之和 } \sigma(N) = \prod_{i=1}^k \frac{p_i^{a_i+1}-1}{p_i-1}$$
+      </div>
+      <div class="tip-box">
+        💡 <strong>OI 选手常识</strong>：因数个数为奇数 $\iff N$ 是完全平方数！
+      </div>
+    </div>
+
+    <!-- Vieta Formulas -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">韦达定理推广 (Vieta's Formulas)</span>
+        <span class="card-tag">高次方程根与系数</span>
+      </div>
+      <p class="desc">一元三次方程 $ax^3 + bx^2 + cx + d = 0$ 的三根为 $r_1, r_2, r_3$：</p>
+      <div class="formula-box">
+        $$r_1 + r_2 + r_3 = -\frac{b}{a}$$
+        $$r_1 r_2 + r_2 r_3 + r_3 r_1 = \frac{c}{a}$$
+        $$r_1 r_2 r_3 = -\frac{d}{a}$$
+      </div>
+      <div class="tip-box">
+        💡 <strong>常考转化</strong>：求 $r_1^2 + r_2^2 + r_3^2 = (r_1+r_2+r_3)^2 - 2(r_1 r_2 + r_2 r_3 + r_3 r_1)$。
+      </div>
+    </div>
+
+    <!-- Stars and Bars -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">隔板法 (Stars and Bars)</span>
+        <span class="card-tag">组合计数王牌</span>
+      </div>
+      <p class="desc">方程 $x_1 + x_2 + \dots + x_k = n$ 的整数解组数：</p>
+      <div class="formula-box">
+        $$\text{正整数解 } (x_i \ge 1): \quad \binom{n-1}{k-1}$$
+        $$\text{非负整数解 } (x_i \ge 0): \quad \binom{n+k-1}{k-1}$$
+      </div>
+      <div class="tip-box">
+        💡 <strong>典型模型</strong>：$n$ 个完全相同的球分到 $k$ 个不同的盒子里，每个盒子至少一个球。
+      </div>
+    </div>
+
+    <!-- PIE -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">三集合容斥原理 (Inclusion-Exclusion)</span>
+        <span class="card-tag">整除与集合交并</span>
+      </div>
+      <div class="formula-box">
+        $$|A \cup B \cup C| = \sum |A| - \sum |A \cap B| + |A \cap B \cap C|$$
+      </div>
+      <div class="tip-box">
+        💡 <strong>降维验证</strong>：做完此类题不确定时，用 `verify_scripts/verify_example.py` 跑 3 秒暴力代码对答案！
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION 3: VOCABULARY -->
+  <div class="section-title">📖 AMC 10 核心高频英文数学词汇速查</div>
+  <div class="card" style="overflow-x: auto;">
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th>分类</th>
+          <th>英文专业术语</th>
+          <th>中文规范翻译</th>
+          <th>题干典型搭配 / 语境</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">几何</span></td>
+          <td class="vocab-en">Perpendicular</td>
+          <td class="vocab-zh">垂直的</td>
+          <td class="vocab-ctx">Perpendicular bisector (垂直平分线/中垂线)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">几何</span></td>
+          <td class="vocab-en">Hypotenuse</td>
+          <td class="vocab-zh">直角三角形斜边</td>
+          <td class="vocab-ctx">Opposite to the 90° angle</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">几何</span></td>
+          <td class="vocab-en">Trapezoid</td>
+          <td class="vocab-zh">梯形</td>
+          <td class="vocab-ctx">Isosceles trapezoid (等腰梯形)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">几何</span></td>
+          <td class="vocab-en">Inscribed / Circumscribed</td>
+          <td class="vocab-zh">内切(接) / 外接(切)</td>
+          <td class="vocab-ctx">Circle inscribed in a regular hexagon</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">数论</span></td>
+          <td class="vocab-en">Prime Factorization</td>
+          <td class="vocab-zh">质因数分解</td>
+          <td class="vocab-ctx">Unique factorization theorem</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">数论</span></td>
+          <td class="vocab-en">Coprime / Relatively prime</td>
+          <td class="vocab-zh">互质的</td>
+          <td class="vocab-ctx">gcd(a, b) = 1</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">数论</span></td>
+          <td class="vocab-en">Modulo / Remainder</td>
+          <td class="vocab-zh">模运算 / 余数</td>
+          <td class="vocab-ctx">What is the remainder when divided by 10?</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-amber">代数组合</span></td>
+          <td class="vocab-en">Arithmetic / Geometric sequence</td>
+          <td class="vocab-zh">等差 / 等比数列</td>
+          <td class="vocab-ctx">Common difference d / Common ratio r</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-amber">代数组合</span></td>
+          <td class="vocab-en">Distinct</td>
+          <td class="vocab-zh">互不相同的</td>
+          <td class="vocab-ctx">Choose 3 distinct integers</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-amber">代数组合</span></td>
+          <td class="vocab-en">Expected Value</td>
+          <td class="vocab-zh">数学期望</td>
+          <td class="vocab-ctx">Linearity of expectation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function updateScore() {
+  const c = parseInt(document.getElementById('correct').value) || 0;
+  const b = parseInt(document.getElementById('blank').value) || 0;
+  const total = Math.min(25, c + b);
+  const score = (c * 6) + (b * 1.5);
+  
+  const scoreEl = document.getElementById('score-display');
+  const statusEl = document.getElementById('status-display');
+  scoreEl.textContent = score.toFixed(1);
+
+  if (score >= 115) {
+    statusEl.innerHTML = '🥇 达成【全球前 1% 卓越奖 (DHR)】！绝对顶尖！';
+    statusEl.style.color = '#fbbf24';
+  } else if (score >= 100) {
+    statusEl.innerHTML = '🥈 达成【AIME 全美数学邀请赛晋级资格 (前 2.5%)】！';
+    statusEl.style.color = '#4ade80';
+  } else if (score >= 90) {
+    statusEl.innerHTML = '🥉 达成【AMC 10 低年级全球成就奖 (Certificate of Achievement)】！';
+    statusEl.style.color = '#38bdf8';
+  } else {
+    statusEl.innerHTML = '🎯 保持稳扎稳打！把做对题数提升到 14 题即可冲入 AIME！';
+    statusEl.style.color = '#94a3b8';
+  }
+}
+</script>
+</body>
+</html>
