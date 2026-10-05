@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定理一：角平分线双星体系与阿波罗尼斯圆 - AMC 10 几何大师特训手册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 12px var(--accent-glow); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .header-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 35px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    .block-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-size: 0.98rem;
+    }
+    .proof-heading { font-weight: 800; color: var(--accent); margin-bottom: 10px; font-size: 1.05rem; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .expand-heading { font-weight: 800; color: var(--purple); margin-bottom: 12px; font-size: 1.15rem; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .example-heading { font-weight: 800; color: var(--amber); margin-bottom: 10px; font-size: 1.15rem; }
+    .step { margin: 8px 0; padding-left: 14px; border-left: 2px solid #334155; }
+    footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--card-border); }
+  </style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html" class="back-btn">⬅️ 返回总看板 (Back to Hub)</a>
+  <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">AMC 10B 几何母定理深度研读</span>
+</div>
+<div class="container">
+
+  <h1>定理一：角平分线双星体系与阿波罗尼斯圆</h1>
+  <p class="header-desc">从三角形内角到外角，从比值守恒到长度闭环，再到动点轨迹极值</p>
+  <div style="margin-bottom: 30px;">
+    <span class="badge badge-blue">高频必考 ★★★★★</span>
+    <span class="badge badge-purple">初二重点突破</span>
+    <span class="badge badge-amber">含4大举一反三深度推广</span>
+  </div>
+
+  <!-- 母定理 -->
+  <div class="block">
+    <div class="block-title">📌 【母定理】内角平分线定理 (Internal Angle Bisector)</div>
+    <div class="img-box">
+      <img src="docs/images/angle_bisector_internal.svg" alt="内角平分线定理图解">
+    </div>
+    <p>在 $\triangle ABC$ 中，$AD$ 为 $\angle A$ 的内角平分线，交对边 $BC$ 于点 $D$。记 $AB=c, AC=b, BD=m, DC=n$。</p>
+    <div class="formula-banner">
+      $$\frac{BD}{DC} = \frac{AB}{AC} \iff \frac{m}{n} = \frac{c}{b}$$
+    </div>
+    <p><strong>定理本质</strong>：角平分线把对边分割成的两条线段比，严格等于对应的两邻边之比！</p>
+  </div>
+
+  <!-- 为什么成立：推导与证明 -->
+  <div class="block">
+    <div class="block-title">🧠 知其所以然：两大经典证明（掌握几何推导之美）</div>
+    
+    <div class="proof-box">
+      <div class="proof-heading">方法一：面积法证明（极力推荐，最干净、最体现数学对称性）</div>
+      <p>1. 点 $D$ 在 $\angle A$ 的角平分线上。由角平分线的几何性质，<strong>点 $D$ 到两边 $AB$ 和 $AC$ 的垂直距离严格相等</strong>，设为 $h_0$。</p>
+      <p>2. 另一方面，$\triangle ABD$ 与 $\triangle ACD$ 共用同一个顶点 $A$，在底边直线 $BC$ 上的高是同一条高，设为 $H$。</p>
+      <p>3. 现在我们从两个不同视角计算两三角形的面积之比：</p>
+      <div class="step">
+        以边 $AB, AC$ 为底：$\frac{\text{Area}(\triangle ABD)}{\text{Area}(\triangle ACD)} = \frac{\frac{1}{2} \cdot c \cdot h_0}{\frac{1}{2} \cdot b \cdot h_0} = \frac{c}{b}$
+      </div>
+      <div class="step">
+        以底边 $BD, DC$ 为底：$\frac{\text{Area}(\triangle ABD)}{\text{Area}(\triangle ACD)} = \frac{\frac{1}{2} \cdot BD \cdot H}{\frac{1}{2} \cdot DC \cdot H} = \frac{BD}{DC}$
+      </div>
+      <p>4. 比较两式，瞬间得到 $\frac{BD}{DC} = \frac{c}{b}$！$\blacksquare$</p>
+    </div>
+
+    <div class="proof-box" style="border-left-color: var(--purple);">
+      <div class="proof-heading" style="color: var(--purple);">方法二：平行辅助线法（锻炼构造等腰三角形的嗅觉）</div>
+      <p>1. 过点 $C$ 作平行于 $AD$ 的直线，交 $BA$ 的延长线于点 $E$（即 $CE \parallel AD$）。</p>
+      <p>2. 利用同位角与内错角：</p>
+      <div class="step">
+        $\angle AEC = \angle BAD$（两直线平行，同位角相等）<br>
+        $\angle ACE = \angle CAD$（两直线平行，内错角相等）
+      </div>
+      <p>3. 因为 $AD$ 是角平分线，所以 $\angle BAD = \angle CAD$。从而 $\angle AEC = \angle ACE$！</p>
+      <p>4. 这说明 $\triangle ACE$ 是一个<strong>等腰三角形</strong>，因此腰长相等：$AE = AC = b$。</p>
+      <p>5. 在 $\triangle BCE$ 中，由截线平行定理（Thales 定理）：$\frac{BD}{DC} = \frac{AB}{AE} = \frac{c}{b}$。证毕！$\blacksquare$</p>
+    </div>
+  </div>
+
+  <!-- 举一反三深度拓展 -->
+  <div class="block">
+    <div class="block-title">🚀 举一反三：四大深度拓展方向（掌握如何使用定理）</div>
+
+    <!-- 拓展 1 -->
+    <div class="expand-box">
+      <div class="expand-heading">方向 1：外角平分线定理（内外双生的完美对称）</div>
+      <div class="img-box" style="margin: 12px 0;">
+        <img src="docs/images/angle_bisector_external.svg" alt="外角平分线图解">
+      </div>
+      <p>延长边 $BA$ 至 $A'$，作外角 $\angle A'AC$ 的平分线交底边 $BC$ 的延长线于点 $E$。外分点 $E$ 满足完全相同的比例式：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{EB}{EC} = \frac{AB}{AC} = \frac{c}{b}$$
+      </div>
+      <p><strong>避坑细节</strong>：分子是交点到远端点 $B$ 的全长 $EB$，分母是交点到近端点 $C$ 的外段长 $EC$！</p>
+    </div>
+
+    <!-- 拓展 2 -->
+    <div class="expand-box" style="border-left-color: var(--amber);">
+      <div class="expand-heading" style="color: var(--amber);">方向 2：调和共轭与阿波罗尼斯圆（Apollonius Circle —— 动点轨迹极值王牌）</div>
+      <p>将内角分点 $D$ 和外角分点 $E$ 联立观察：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{BD}{DC} = \frac{EB}{EC} = \frac{AB}{AC} = k \quad (k \ne 1)$$
+      </div>
+      <p><strong>阿波罗尼斯定理</strong>：平面上所有满足 $\frac{PB}{PC} = k$ 的动点 $P$ 的轨迹，<strong>必是一个严格的圆</strong>！</p>
+      <p><strong>极客核心秘籍</strong>：</p>
+      <div class="step">
+        内分点 $D$ 与外分点 $E$，恰好就是该圆在直线 $BC$ 上的<strong>直径两端点</strong>！<br>
+        轨迹圆的圆心为 $DE$ 的中点，半径为 $\frac{DE}{2}$。<br>
+        <strong>AMC 10 考法</strong>：求动点三角形 $\triangle PBC$ 面积的最大值。圆上的最高点即对应最大高，最大面积 $= \frac{1}{2} \cdot BC \cdot \text{半径}$！
+      </div>
+    </div>
+
+    <!-- 拓展 3 -->
+    <div class="expand-box" style="border-left-color: var(--green);">
+      <div class="expand-heading" style="color: var(--green);">方向 3：角平分线自身长度公式（免作垂线，10秒秒杀）</div>
+      <p>AMC 10 中经常给出三边长，要求计算角平分线自身线段 $AD$ 的长。不用列余弦定理，记住乘积差公式：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        * 内角平分线长：$$AD^2 = AB \cdot AC - BD \cdot DC = bc - mn$$
+        * 外角平分线长：$$AE^2 = EB \cdot EC - AB \cdot AC$$
+      </div>
+      <p><strong>半角三角展开公式</strong>：$$AD = \frac{2bc \cos(A/2)}{b + c}$$</p>
+    </div>
+
+    <!-- 拓展 4 -->
+    <div class="expand-box" style="border-left-color: var(--rose);">
+      <div class="expand-heading" style="color: var(--rose);">方向 4：三角形内心与斯诺定理（Incenter Ratio）</div>
+      <p>设点 $I$ 为 $\triangle ABC$ 的内心（三条角平分线交点）。内心将角平分线 $AD$ 分成的比例为：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{AI}{ID} = \frac{b + c}{a} = \frac{AB + AC}{BC}$$
+      </div>
+      <p><strong>推导思路</strong>：在 $\triangle ABD$ 中，由 $BI$ 平分 $\angle B$，直接套用内角平分线定理：$\frac{AI}{ID} = \frac{AB}{BD} = \frac{c}{\frac{ac}{b+c}} = \frac{b+c}{a}$！极为优雅！</p>
+    </div>
+  </div>
+
+  <!-- 实战秒杀演练 -->
+  <div class="block">
+    <div class="block-title">⚡ AMC 10 真题实战演练</div>
+    <div class="example-box">
+      <div class="example-heading">真题示范：已知三边求内角平分线长</div>
+      <p><strong>【题目】</strong> 在 $\triangle ABC$ 中，$AB = 6, AC = 4, BC = 5$。求内角平分线 $AD$ 的长度。</p>
+      <p><strong>【普通解法（耗时 5 分钟，易算错）】</strong>：先用余弦定理算 $\cos A = \frac{6^2+4^2-5^2}{2 \times 6 \times 4} = \frac{27}{48} = \frac{9}{16}$，再用半角公式算 $\cos(A/2)$，再列方程求 $AD$。</p>
+      <p><strong>【大师解法（利用拓展公式，15 秒秒杀）】</strong>：</p>
+      <div class="step">
+        1. 由内角平分线定理，底边两段比 $BD : DC = c : b = 6 : 4 = 3 : 2$。<br>
+        2. 全长 $BC = 5$，因此 $m = BD = 3, n = DC = 2$。<br>
+        3. 直接套用长度公式：$AD^2 = bc - mn = (6 \times 4) - (3 \times 2) = 24 - 6 = 18$。<br>
+        4. 瞬间得出 $AD = \sqrt{18} = 3\sqrt{2}$！
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+</body>
+</html>

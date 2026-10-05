@@ -37,12 +37,22 @@ $$
 
 ---
 
-## 📚 知识速查武器包（非奥数背景必看）
+## 📚 五大核心几何母定理互动大师手册 (独立专页)
+
+* 🌐 **[总导航大厅 (Interactive Portal)](https://simon-shi83.github.io/amc10-sprint/)** —— 8套真题看板 + 智能算分器 + 几何/数论综合手册
+1. 📐 **[定理一：角平分线双星体系与阿波罗尼斯圆](geom_01_angle_bisector.html)** —— 双证明法 + 外角推广 + 调和共轭 + 长度公式
+2. 📐 **[定理二：斯特瓦尔特定理与中线模型](geom_02_stewart.html)** —— 余弦互补推导 + 阿波罗尼奥斯中线公式 + 平行四边形恒等式
+3. 📐 **[定理三：圆幂定理不变量族与根轴根心](geom_03_power_of_point.html)** —— 代数守恒 + 相交弦/割线/切线三合一 + 两圆公共弦根轴
+4. 📐 **[定理四：托勒密定理与正多边形网络](geom_04_ptolemy.html)** —— 相似构造推导 + 广义不等式 + 正五边形黄金分割 + 和角公式
+5. 📐 **[定理五：直角三角形射影定理与高线面积群](geom_05_projection_and_area.html)** —— 全相似推导 + 倒数平方和 + 算几不等式几何图解
+
+---
+
+## 🔢 代数、数论与词汇速查
 
 1. 📖 [50 个核心高频英文数学词汇速查表](docs/vocab_50.md) —— 扫清读题所有生僻专业词汇
-2. 📐 [平面几何 5 大必考定理与公式速查](docs/geometry_theorems.md) —— 内嵌高清矢量几何图 + 标准公式块
-3. 🔢 [数论与代数提速核心秘籍](docs/algebra_and_number_theory.md) —— 因数和公式、高次韦达、同余模运算、隔板法与容斥
-4. 💻 [Python 暴力验证示例脚本](verify_scripts/verify_example.py) —— OI 选手用代码验证数学的“专属特权”
+2. 🔢 [数论与代数提速核心秘籍](docs/algebra_and_number_theory.md) —— 因数和公式、高次韦达、同余模运算、隔板法与容斥
+3. 💻 [Python 暴力验证示例脚本](verify_scripts/verify_example.py) —— OI 选手用代码验证数学的“专属特权”
 
 ---
 

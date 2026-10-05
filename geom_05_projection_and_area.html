@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定理五：直角三角形射影定理与高线面积群 - AMC 10 几何大师特训手册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 12px var(--accent-glow); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .header-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 35px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    .block-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-size: 0.98rem;
+    }
+    .proof-heading { font-weight: 800; color: var(--accent); margin-bottom: 10px; font-size: 1.05rem; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .expand-heading { font-weight: 800; color: var(--purple); margin-bottom: 12px; font-size: 1.15rem; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .example-heading { font-weight: 800; color: var(--amber); margin-bottom: 10px; font-size: 1.15rem; }
+    .step { margin: 8px 0; padding-left: 14px; border-left: 2px solid #334155; }
+    footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--card-border); }
+  </style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html" class="back-btn">⬅️ 返回总看板 (Back to Hub)</a>
+  <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">AMC 10B 几何母定理深度研读</span>
+</div>
+<div class="container">
+
+  <h1>定理五：直角三角形射影定理与高线面积群</h1>
+  <p class="header-desc">从全相似三角形模型到高线倒数平方和，洞穿算几不等式的纯几何本质</p>
+  <div style="margin-bottom: 30px;">
+    <span class="badge badge-blue">相似形第一模型 ★★★★★</span>
+    <span class="badge badge-purple">数形结合极品</span>
+    <span class="badge badge-amber">含4大举一反三深度推广</span>
+  </div>
+
+  <div class="block">
+    <div class="block-title">📌 【母定理】射影定理 (Geometric Mean / Altitude Theorem)</div>
+    <div class="img-box">
+      <img src="docs/images/right_triangle_project.svg" alt="直角三角形射影定理图解">
+    </div>
+    <p>在 Rt$\triangle ABC$ 中，$\angle C = 90^\circ$，$CD \perp AB$ 于 $D$（设 $CD=h, AD=p, BD=q, AB=c$ 满足 $p + q = c$）。</p>
+    <div class="formula-banner">
+      $$h^2 = p \cdot q \quad \text{(斜边高是两底段的几何平均)}$$
+      $$AC^2 = p \cdot c, \quad BC^2 = q \cdot c \quad \text{(直角边是其射影与斜边的几何平均)}$$
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🧠 知其所以然：定理推导（三直角三角形全相似）</div>
+    <div class="proof-box">
+      <div class="proof-heading">严格推导：两个小直角三角形与大直角三角形全相似</div>
+      <p>1. 观察角的互余关系：在 Rt$\triangle ABC$ 中，$\angle A + \angle B = 90^\circ$。</p>
+      <p>2. 在 Rt$\triangle ACD$ 中，$\angle A + \angle ACD = 90^\circ \implies \angle ACD = \angle B$。</p>
+      <p>3. 在 Rt$\triangle CBD$ 中，$\angle B + \angle BCD = 90^\circ \implies \angle BCD = \angle A$。</p>
+      <p>4. 于是：$\triangle ACD \sim \triangle CBD \sim \triangle ABC$！</p>
+      <div class="step">
+        由 $\triangle ACD \sim \triangle CBD$：$\frac{CD}{BD} = \frac{AD}{CD} \implies \frac{h}{q} = \frac{p}{h} \implies h^2 = pq$！<br>
+        由 $\triangle ACD \sim \triangle ABC$：$\frac{AC}{AB} = \frac{AD}{AC} \implies AC^2 = AD \cdot AB = pc$！<br>
+        由 $\triangle CBD \sim \triangle ABC$：$\frac{BC}{AB} = \frac{BD}{BC} \implies BC^2 = BD \cdot AB = qc$！
+      </div>
+      <p>5. 两式相加：$AC^2 + BC^2 = pc + qc = (p+q)c = c^2$，顺便完美证出<strong>勾股定理</strong>！$\blacksquare$</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🚀 举一反三：四大深度拓展方向</div>
+
+    <div class="expand-box">
+      <div class="expand-heading">方向 1：斜边高的倒数平方和定理（AMC 10 超高频模型）</div>
+      <p>由面积恒等式 $ch = ab \implies h = \frac{ab}{c}$，结合勾股定理 $c^2 = a^2 + b^2$：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{1}{h^2} = \frac{1}{a^2} + \frac{1}{b^2}$$
+      </div>
+      <p><strong>三维空间推广（三直角四面体）</strong>：四面体 $O-ABC$ 三棱两两垂直，$h$ 为原点到底面的高：$$\frac{1}{h^2} = \frac{1}{a^2} + \frac{1}{b^2} + \frac{1}{c^2}$$</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--amber);">
+      <div class="expand-heading" style="color: var(--amber);">方向 2：算术-几何平均不等式 (AM-GM) 的纯几何直观解释</div>
+      <p>在以 $c = p + q$ 为直径的半圆中，直角顶点在圆弧上：</p>
+      <div class="step">
+        圆半径为算术平均值：$\frac{p + q}{2}$<br>
+        射影高线为几何平均值：$h = \sqrt{pq}$<br>
+        由于半圆内任意垂线段长度永远不可能超过半径：
+      </div>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{p + q}{2} \ge \sqrt{pq}$$
+      </div>
+      <p><strong>等号成立条件</strong>：当且仅当垂线经过圆心，即 $p = q$！一幅图搞懂高中代数最核心不等式！</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--green);">
+      <div class="expand-heading" style="color: var(--green);">方向 3：内切圆与外接圆半径全家桶</div>
+      <div class="step">
+        * <strong>直角三角形内切圆半径速算</strong>：$$r = \frac{a + b - c}{2}$$
+        * <strong>任意三角形内切圆半径（周长模型）</strong>：$$r = \frac{\text{Area}}{s} \quad \left(s = \frac{a+b+c}{2}\right)$$
+        * <strong>任意三角形外接圆半径</strong>：$$R = \frac{abc}{4 \cdot \text{Area}}$$
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--rose);">
+      <div class="expand-heading" style="color: var(--rose);">方向 4：海伦公式与三斜求积</div>
+      <p>已知三角形三边 $a, b, c$ 求面积：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\text{Area} = \sqrt{s(s-a)(s-b)(s-c)}$$
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">⚡ AMC 10 真题实战演练</div>
+    <div class="example-box">
+      <div class="example-heading">真题示范：直角三角形高线与倒数和</div>
+      <p><strong>【题目】</strong> 直角三角形两直角边长为 $3$ 和 $4$。求斜边上的高 $h$。</p>
+      <p><strong>【大师解法】</strong>：套用高线倒数平方和：</p>
+      <div class="step">
+        $\frac{1}{h^2} = \frac{1}{3^2} + \frac{1}{4^2} = \frac{1}{9} + \frac{1}{16} = \frac{25}{144}$<br>
+        $h^2 = \frac{144}{25} \implies h = \frac{12}{5} = 2.4$！10 秒出答案！
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+</body>
+</html>

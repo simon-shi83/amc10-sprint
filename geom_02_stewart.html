@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定理二：斯特瓦尔特定理与阿波罗尼奥斯中线模型 - AMC 10 几何大师特训手册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 12px var(--accent-glow); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .header-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 35px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    .block-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-size: 0.98rem;
+    }
+    .proof-heading { font-weight: 800; color: var(--accent); margin-bottom: 10px; font-size: 1.05rem; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .expand-heading { font-weight: 800; color: var(--purple); margin-bottom: 12px; font-size: 1.15rem; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .example-heading { font-weight: 800; color: var(--amber); margin-bottom: 10px; font-size: 1.15rem; }
+    .step { margin: 8px 0; padding-left: 14px; border-left: 2px solid #334155; }
+    footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--card-border); }
+  </style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html" class="back-btn">⬅️ 返回总看板 (Back to Hub)</a>
+  <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">AMC 10B 几何母定理深度研读</span>
+</div>
+<div class="container">
+
+  <h1>定理二：斯特瓦尔特定理与阿波罗尼奥斯中线模型</h1>
+  <p class="header-desc">求解任意塞瓦线（中线、角平分线、三分线）长度的终极万能核武器</p>
+  <div style="margin-bottom: 30px;">
+    <span class="badge badge-blue">万能武器 ★★★★★</span>
+    <span class="badge badge-purple">线段计算第一定理</span>
+    <span class="badge badge-amber">含4大举一反三深度推广</span>
+  </div>
+
+  <div class="block">
+    <div class="block-title">📌 【母定理】斯特瓦尔特定理 (Stewart's Theorem)</div>
+    <div class="img-box">
+      <img src="docs/images/stewart_and_median.svg" alt="斯特瓦尔特定理图解">
+    </div>
+    <p>在 $\triangle ABC$ 中，$D$ 为底边 $BC$ 上的<strong>任意一点</strong>。记 $BC=a, AC=b, AB=c, AD=d, BD=m, DC=n$（满足 $a = m + n$）。</p>
+    <div class="formula-banner">
+      $$b^2 m + c^2 n = a(d^2 + mn)$$
+    </div>
+    <p style="text-align: center; color: var(--text-muted);">
+      记忆口诀：<em>"A man and his dad put a bomb in the sink."</em> ($man + dad = bmb + cnc$)
+    </p>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🧠 知其所以然：定理推导（邻补角余弦法）</div>
+    <div class="proof-box">
+      <div class="proof-heading">严格推导：邻补角余弦相加为 0</div>
+      <p>1. 观察底边交点 $D$ 处的两个角 $\angle ADB$ 与 $\angle ADC$，它们互为邻补角：$\angle ADB + \angle ADC = 180^\circ$。</p>
+      <p>2. 根据三角学恒等式：$\cos \angle ADB + \cos \angle ADC = 0$。</p>
+      <p>3. 在 $\triangle ABD$ 中由余弦定理：$\cos \angle ADB = \frac{d^2 + m^2 - c^2}{2dm}$。</p>
+      <p>4. 在 $\triangle ACD$ 中由余弦定理：$\cos \angle ADC = \frac{d^2 + n^2 - b^2}{2dn}$。</p>
+      <p>5. 两式相加为 0：$$\frac{d^2 + m^2 - c^2}{2dm} + \frac{d^2 + n^2 - b^2}{2dn} = 0$$</p>
+      <p>6. 两边同时乘以 $2dmn$：$$n(d^2 + m^2 - c^2) + m(d^2 + n^2 - b^2) = 0$$</p>
+      <p>7. 展开并整理：$$(m+n)d^2 + mn(m+n) = b^2 m + c^2 n$$</p>
+      <p>8. 代入 $m+n = a$，即得：$$a(d^2 + mn) = b^2 m + c^2 n$$ 证毕！$\blacksquare$</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🚀 举一反三：四大深度拓展方向</div>
+
+    <div class="expand-box">
+      <div class="expand-heading">方向 1：阿波罗尼奥斯中线定理（Apollonius's Theorem —— 最重要的特例）</div>
+      <p>当点 $D$ 恰好为 $BC$ 的<strong>中点</strong>时，有 $m = n = \frac{a}{2}$。代入斯特定理：</p>
+      <div class="step">
+        $b^2 \left(\frac{a}{2}\right) + c^2 \left(\frac{a}{2}\right) = a \left(m_a^2 + \frac{a^2}{4}\right)$<br>
+        两边同除以 $\frac{a}{2}$：
+      </div>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$b^2 + c^2 = 2 \left(m_a^2 + \frac{a^2}{4}\right) = 2(AD^2 + BD^2)$$
+      </div>
+      <p>由此直接导出<strong>中线长万能公式</strong>：$$m_a = \frac{1}{2} \sqrt{2b^2 + 2c^2 - a^2}$$</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--amber);">
+      <div class="expand-heading" style="color: var(--amber);">方向 2：平行四边形对角线恒等式</div>
+      <p>在任意平行四边形 $ABCD$ 中，对角线交点 $O$ 互相平分对角线。在 $\triangle ABC$ 中 $BO$ 为中线，套用中线定理立即得到：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$AC^2 + BD^2 = 2(AB^2 + BC^2)$$
+      </div>
+      <p><strong>定理口诀</strong>：平行四边形<strong>两对角线平方和 = 四条边平方和</strong>！</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--green);">
+      <div class="expand-heading" style="color: var(--green);">方向 3：三中线平方和与三边平方和黄金比（3/4 定理）</div>
+      <p>将三角形的三条中线公式 $m_a, m_b, m_c$ 全部平方后相加：</p>
+      <div class="step">
+        $m_a^2 = \frac{1}{4}(2b^2 + 2c^2 - a^2)$<br>
+        $m_b^2 = \frac{1}{4}(2a^2 + 2c^2 - b^2)$<br>
+        $m_c^2 = \frac{1}{4}(2a^2 + 2b^2 - c^2)$
+      </div>
+      <p>三式相加，交叉项完美对称消减：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\sum m_a^2 = m_a^2 + m_b^2 + m_c^2 = \frac{3}{4} (a^2 + b^2 + c^2)$$
+      </div>
+      <p><strong>重心性质</strong>：重心 $G$ 分中线为 $2:1$，故各顶点到重心的距离平方和 $\sum AG^2 = \frac{1}{3} (a^2 + b^2 + c^2)$！</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--rose);">
+      <div class="expand-heading" style="color: var(--rose);">方向 4：角平分线长公式的“大一统推导”（斯特定理与角平分线联姻）</div>
+      <p>如果线段 $AD$ 是角平分线，由角平分线定理 $m = \frac{ac}{b+c}, n = \frac{ab}{b+c}$。将它们代入斯特定理 $b^2 m + c^2 n = a(d^2 + mn)$：</p>
+      <div class="step">
+        左边 $= b^2 \frac{ac}{b+c} + c^2 \frac{ab}{b+c} = \frac{abc(b+c)}{b+c} = abc$<br>
+        右边 $= a(d^2 + mn)$<br>
+        两边消去 $a$：$bc = d^2 + mn \iff d^2 = bc - mn$！
+      </div>
+      <p><strong>体会大一统的美妙</strong>：看似独立的两个定理，在这里完美汇聚！</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">⚡ AMC 10 真题实战演练</div>
+    <div class="example-box">
+      <div class="example-heading">真题示范：已知两边与中线求第三边</div>
+      <p><strong>【题目】</strong> 在 $\triangle ABC$ 中，$AB = 7, AC = 9$，中线 $AM = 7$。求底边 $BC$ 的长度。</p>
+      <p><strong>【大师解法】</strong>：直接套用阿波罗尼奥斯中线定理：</p>
+      <div class="step">
+        $AB^2 + AC^2 = 2(AM^2 + BM^2)$<br>
+        $7^2 + 9^2 = 2(7^2 + BM^2)$<br>
+        $49 + 81 = 2(49 + BM^2) \implies 130 = 98 + 2 BM^2$<br>
+        $2 BM^2 = 32 \implies BM^2 = 16 \implies BM = 4$<br>
+        因为 $M$ 是中点，底边 $BC = 2 \times BM = 2 \times 4 = 8$！
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+</body>
+</html>

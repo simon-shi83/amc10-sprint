@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定理四：托勒密定理与正多边形网络 - AMC 10 几何大师特训手册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 12px var(--accent-glow); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .header-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 35px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    .block-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-size: 0.98rem;
+    }
+    .proof-heading { font-weight: 800; color: var(--accent); margin-bottom: 10px; font-size: 1.05rem; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .expand-heading { font-weight: 800; color: var(--purple); margin-bottom: 12px; font-size: 1.15rem; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .example-heading { font-weight: 800; color: var(--amber); margin-bottom: 10px; font-size: 1.15rem; }
+    .step { margin: 8px 0; padding-left: 14px; border-left: 2px solid #334155; }
+    footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--card-border); }
+  </style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html" class="back-btn">⬅️ 返回总看板 (Back to Hub)</a>
+  <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">AMC 10B 几何母定理深度研读</span>
+</div>
+<div class="container">
+
+  <h1>定理四：托勒密定理与正多边形网络</h1>
+  <p class="header-desc">四边形对角线与边长的最高乘积法则，贯通黄金分割与正多边形对称性</p>
+  <div style="margin-bottom: 30px;">
+    <span class="badge badge-blue">几何乘积巅峰 ★★★★★</span>
+    <span class="badge badge-purple">竞赛秒杀第一定理</span>
+    <span class="badge badge-amber">含4大举一反三深度推广</span>
+  </div>
+
+  <div class="block">
+    <div class="block-title">📌 【母定理】托勒密定理 (Ptolemy's Theorem)</div>
+    <div class="img-box">
+      <img src="docs/images/ptolemy_and_pentagon.svg" alt="托勒密定理图解">
+    </div>
+    <p>对于任意<strong>圆内接四边形</strong> $ABCD$：<strong>两条对角线的乘积 = 两组对边乘积之和</strong>！</p>
+    <div class="formula-banner">
+      $$AC \cdot BD = AB \cdot CD + BC \cdot AD$$
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🧠 知其所以然：定理推导（经典辅助线相似法）</div>
+    <div class="proof-box">
+      <div class="proof-heading">严格推导：在对角线上构造一对相似三角形</div>
+      <p>1. 在对角线 $BD$ 上取一点 $E$，使得 $\angle DAE = \angle CAB$。</p>
+      <p>2. 观察 $\triangle ADE$ 与 $\triangle ACB$：</p>
+      <div class="step">
+        $\angle DAE = \angle CAB$（构造条件）<br>
+        $\angle ADE = \angle ACB$（同对圆弧 $AB$ 的圆周角）<br>
+        因此 $\triangle ADE \sim \triangle ACB$！
+      </div>
+      <p>3. 由相似比：$\frac{ED}{BC} = \frac{AD}{AC} \implies ED \cdot AC = BC \cdot AD$ （①式）</p>
+      <p>4. 观察另外两个三角形 $\triangle ABE$ 与 $\triangle ACD$：</p>
+      <div class="step">
+        $\angle BAE = \angle BAC + \angle CAE = \angle DAE + \angle CAE = \angle CAD$<br>
+        $\angle ABE = \angle ACD$（同对圆弧 $AD$ 的圆周角）<br>
+        因此 $\triangle ABE \sim \triangle ACD$！
+      </div>
+      <p>5. 由相似比：$\frac{BE}{CD} = \frac{AB}{AC} \implies BE \cdot AC = AB \cdot CD$ （②式）</p>
+      <p>6. 将 ①式 与 ②式 左右相加：$$(BE + ED) \cdot AC = AB \cdot CD + BC \cdot AD$$</p>
+      <p>7. 因为 $BE + ED = BD$，代入即得：$$BD \cdot AC = AB \cdot CD + BC \cdot AD$$ 证毕！$\blacksquare$</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🚀 举一反三：四大深度拓展方向</div>
+
+    <div class="expand-box">
+      <div class="expand-heading">方向 1：广义托勒密不等式（Ptolemy's Inequality）</div>
+      <p>对于平面上<strong>任意</strong>四边形 $ABCD$（不要求共圆）：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$AC \cdot BD \le AB \cdot CD + BC \cdot AD$$
+      </div>
+      <p><strong>等号成立充要条件</strong>：当且仅当 $A, B, C, D$ 四点共圆，且四点按顺序排列在圆周上！</p>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--amber);">
+      <div class="expand-heading" style="color: var(--amber);">方向 2：正多边形中的黄金分割秒杀</div>
+      <p>正多边形所有顶点天然共圆，是托勒密定理的最佳用武之地：</p>
+      <div class="step">
+        <strong>正五边形</strong>：边长设为 1，对角线长设为 $d$。选定四顶点作圆内接四边形：<br>
+        对角线积 $= d \cdot d = d^2$<br>
+        对边积和 $= 1 \cdot 1 + 1 \cdot d = 1 + d$<br>
+        代入托勒密：$d^2 = d + 1 \implies d^2 - d - 1 = 0 \implies d = \frac{1+\sqrt{5}}{2}$（黄金分割比！）
+      </div>
+      <div class="step" style="margin-top: 10px;">
+        <strong>正七边形倒数和（世界名题）</strong>：边长为 $a$，两对角线为 $b, c$，由托勒密立得：$$\frac{1}{a} = \frac{1}{b} + \frac{1}{c}$$
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--green);">
+      <div class="expand-heading" style="color: var(--green);">方向 3：纯几何秒证三角函数正弦和角公式</div>
+      <p>在直径为 1 的圆中，四边形一条对角线为直径。由托勒密定理，直接纯几何得出：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\sin(\alpha + \beta) = \sin\alpha \cos\beta + \cos\alpha \sin\beta$$
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--rose);">
+      <div class="expand-heading" style="color: var(--rose);">方向 4：庞斯莱定理（等边三角形外接圆动点极值）</div>
+      <p>设 $P$ 为等边 $\triangle ABC$ 外接圆弧 $BC$ 上的任意一点。连结 $PA, PB, PC$：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$PA = PB + PC$$
+      </div>
+      <p><strong>推导</strong>：对四边形 $ABPC$ 套用托勒密定理：$PA \cdot BC = PB \cdot AC + PC \cdot AB$。消去边长 $AB=BC=AC$，立得 $PA = PB + PC$！</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">⚡ AMC 10 真题实战演练</div>
+    <div class="example-box">
+      <div class="example-heading">真题示范：圆内接四边形求未知对角线</div>
+      <p><strong>【题目】</strong> 圆内接四边形 $ABCD$ 中，$AB = 2, BC = 3, CD = 4, DA = 5$，$AC = 4.5$。求另一条对角线 $BD$ 的长。</p>
+      <p><strong>【大师解法】</strong>：直接使用托勒密定理：</p>
+      <div class="step">
+        $AC \cdot BD = AB \cdot CD + BC \cdot DA$<br>
+        $4.5 \cdot BD = (2 \times 4) + (3 \times 5) = 8 + 15 = 23$<br>
+        $BD = \frac{23}{4.5} = \frac{46}{9}$！无需建立坐标系，10 秒搞定！
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定理三：圆幂定理不变量族与根轴根心 - AMC 10 几何大师特训手册</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #f43f5e;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 13, 25, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(56, 189, 248, 0.15); box-shadow: 0 0 12px var(--accent-glow); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .header-desc { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-purple { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+
+    .block {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 35px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+    .block-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .formula-banner {
+      background: #070d19;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #38bdf8;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .img-box {
+      background: #050914;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin: 20px 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    .proof-box {
+      background: rgba(56, 189, 248, 0.04);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 20px 0;
+      font-size: 0.98rem;
+    }
+    .proof-heading { font-weight: 800; color: var(--accent); margin-bottom: 10px; font-size: 1.05rem; }
+
+    .expand-box {
+      background: rgba(192, 132, 252, 0.05);
+      border-left: 4px solid var(--purple);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .expand-heading { font-weight: 800; color: var(--purple); margin-bottom: 12px; font-size: 1.15rem; }
+
+    .example-box {
+      background: rgba(251, 191, 36, 0.05);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+    .example-heading { font-weight: 800; color: var(--amber); margin-bottom: 10px; font-size: 1.15rem; }
+    .step { margin: 8px 0; padding-left: 14px; border-left: 2px solid #334155; }
+    footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid var(--card-border); }
+  </style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="index.html" class="back-btn">⬅️ 返回总看板 (Back to Hub)</a>
+  <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">AMC 10B 几何母定理深度研读</span>
+</div>
+<div class="container">
+
+  <h1>定理三：圆幂定理不变量族与根轴根心</h1>
+  <p class="header-desc">从代数不变量统一相交弦、割线、切线，贯穿多圆几何的根轴理论</p>
+  <div style="margin-bottom: 30px;">
+    <span class="badge badge-blue">圆几何基石 ★★★★★</span>
+    <span class="badge badge-purple">代数与几何守恒</span>
+    <span class="badge badge-amber">含4大举一反三深度推广</span>
+  </div>
+
+  <div class="block">
+    <div class="block-title">📌 【母定理】圆幂定理 (Power of a Point)</div>
+    <div class="img-box">
+      <img src="docs/images/power_of_a_point_family.svg" alt="圆幂定理家族图解">
+    </div>
+    <p>圆 $\omega$ 圆心为 $O$，半径为 $R$。平面上任意一点 $P$ 到圆心的距离为 $d = PO$。定义点 $P$ 关于圆 $\omega$ 的<strong>圆幂值（Power）</strong>为：</p>
+    <div class="formula-banner">
+      $$\text{Pow}(P) = d^2 - R^2$$
+    </div>
+    <p>无论点 $P$ 在圆内、圆外还是圆上，过点 $P$ 作任意交圆于 $A, B$ 的直线，其距离乘积绝对值恒守恒：</p>
+    <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+      ① 圆内相交弦：$PA \cdot PB = PC \cdot PD = R^2 - d^2$<br>
+      ② 圆外双割线：$PA \cdot PB = PC \cdot PD = d^2 - R^2$<br>
+      ③ 切割线定理：$PT^2 = PA \cdot PB = d^2 - R^2$
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🧠 知其所以然：定理推导（相似三角形圆周角法）</div>
+    <div class="proof-box">
+      <div class="proof-heading">形态一：相交弦定理推导</div>
+      <p>1. 弦 $AB$ 与弦 $CD$ 相交于圆内一点 $P$。连结 $AC$ 与 $DB$。</p>
+      <p>2. 由同弧所对圆周角相等：$\angle A = \angle D$（所对同弧 $CB$），$\angle C = \angle B$（所对同弧 $AD$）。</p>
+      <p>3. 因此 $\triangle PAC \sim \triangle PDB$（两角对应相等，相似）。</p>
+      <p>4. 由相似三角形对应边成比例：$\frac{PA}{PD} = \frac{PC}{PB} \implies PA \cdot PB = PC \cdot PD$。证毕！$\blacksquare$</p>
+    </div>
+
+    <div class="proof-box" style="border-left-color: var(--purple);">
+      <div class="proof-heading" style="color: var(--purple);">形态二与三：割线与切线的极限统一</div>
+      <p>对于圆外点 $P$ 引切线 $PT$ 与割线 $PAB$：弦切角 $\angle PTA$ 等于圆周角 $\angle TBP$。同理导出 $\triangle PTA \sim \triangle PBT \implies \frac{PT}{PB} = \frac{PA}{PT} \implies PT^2 = PA \cdot PB$！</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">🚀 举一反三：四大深度拓展方向</div>
+
+    <div class="expand-box">
+      <div class="expand-heading">方向 1：根轴定理（Radical Axis —— 两圆等幂线）</div>
+      <p>对于平面上两个圆 $\omega_1(O_1, R_1)$ 和 $\omega_2(O_2, R_2)$：</p>
+      <div class="step">
+        满足到两圆圆幂相等的点集 $\text{Pow}_1(P) = \text{Pow}_2(P)$，<strong>必是一条垂直于两圆连心线 $O_1 O_2$ 的直线</strong>，称为<strong>根轴</strong>！<br>
+        <strong>超高频考点</strong>：如果两圆相交于 $A, B$ 两点，因为交点 $A, B$ 在两个圆上圆幂都为 0，所以<strong>两圆的公共弦 $AB$ 所在直线就是根轴</strong>！
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--amber);">
+      <div class="expand-heading" style="color: var(--amber);">方向 2：三圆根心定理（Radical Center）</div>
+      <p>平面上有三个圆，两两的根轴若不平行，<strong>三条根轴必相交于唯一点，称为三圆根心</strong>！</p>
+      <div class="step">
+        <strong>证明核心</strong>：设根轴 1与2 和 2与3 交于点 $K$。由等幂传递性：$\text{Pow}_1(K) = \text{Pow}_2(K) = \text{Pow}_3(K)$，故点 $K$ 必在 1与3 的根轴上！<br>
+        <strong>秒杀场景</strong>：三圆两两相交，它们的三条公共弦必在同一点相交！
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--green);">
+      <div class="expand-heading" style="color: var(--green);">方向 3：切线长定理与圆外切四边形对边和定理</div>
+      <p>从圆外一点 $P$ 向圆引两条切线 $PT_1, PT_2$，切线长严格相等：$PT_1 = PT_2$。</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        圆外切四边形中：两组对边之和严格相等！$$AB + CD = BC + AD$$
+      </div>
+    </div>
+
+    <div class="expand-box" style="border-left-color: var(--rose);">
+      <div class="expand-heading" style="color: var(--rose);">方向 4：圆内接四边形对角线比公式</div>
+      <p>设圆内接四边形 $ABCD$，其对角线长度之比严格等于包含该对角线的两组邻边乘积和之比：</p>
+      <div class="formula-banner" style="font-size: 1.15rem; padding: 12px;">
+        $$\frac{AC}{BD} = \frac{AB \cdot AD + CB \cdot CD}{BA \cdot BC + DA \cdot DC}$$
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-title">⚡ AMC 10 真题实战演练</div>
+    <div class="example-box">
+      <div class="example-heading">真题示范：两相交圆中的线段计算</div>
+      <p><strong>【题目】</strong> 圆内两弦 $AB, CD$ 交于点 $P$。$AP = 4, PB = 6, CP = 3$。求 $PD$ 的长及 $CD$ 全长。</p>
+      <p><strong>【大师解法】</strong>：直接使用相交弦定理：</p>
+      <div class="step">
+        $PA \cdot PB = PC \cdot PD$<br>
+        $4 \times 6 = 3 \times PD \implies 24 = 3 \cdot PD \implies PD = 8$。<br>
+        $CD$ 全长 $= CP + PD = 3 + 8 = 11$！
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>🎯 AMC 10B Sprint Lab · 陪儿子一起征服数学之巅 · VisionGo</p>
+</footer>
+</body>
+</html>
